@@ -1,0 +1,46 @@
+{
+  "input_train_directories": [
+    {
+      "directory_name": "data/distant_phase/de_smiley",
+      "file_names": ["de_smiley.gz"],
+      "schema_directory": "data/distant_phase/de_smiley",
+      "schema_labels": ["text", "sentiment_label"],
+      "language_label": "language_label",
+      "max_sentences": -1
+    }
+  ],
+  "input_valid_directories": [],
+  "input_test_directories": [],
+  "model": "default_cnn",
+  "train_loader_type": "distant_phase_sequencial_iterator",
+  "evaluation": "senti_lang_eval",
+  "embeddings_directory": "embeddings",
+  "embeddings_basename": "de_embeddings_200M_200d",
+  "output_path": "models/distant_phase",
+  "output_basename": "de_100M_binary",
+  "pretrained_model_directory": "None",
+  "pretrained_model_basename": "None",
+  "loss": "categorical_crossentropy",
+  "metrics": "f1_score_keras",
+  "batch_size": 1000,
+  "max_sentence_length": 60,
+  "transfer_learning": "False",
+  "nlabels": 2,
+  "tb_log_dir": "distant_de",
+  "nb_epochs": 1,
+  "optimizer": {
+    "epsilon": 1e-6,
+    "lr": 0.1,
+    "name": "adadelta",
+    "rho": 0.95
+  },
+  "callbacks": [
+    {
+      "mode": "max",
+      "save_best_only": "True",
+      "verbose": 1,
+      "name": "model_checkpoit",
+      "monitor": "f1_score_keras"
+    }
+  ]
+}

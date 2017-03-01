@@ -70,6 +70,9 @@ def fit_model_single(config_data, model, train_iterator, valid_iterator):
     nb_epochs = config_data['nb_epochs']
     batch_size = config_data['batch_size']
 
+    if not train_iterator:
+        return None, False, ''
+
     if train_iterator.type == 'generator' and train_iterator.nsamples > 0:
         callbacks, stored_model = run_utils.get_callbacks(config_data)
         if valid_iterator:

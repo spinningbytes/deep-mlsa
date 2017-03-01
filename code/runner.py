@@ -75,21 +75,22 @@ def main(args):
         if not config_data.get('cross_valid') == 'true':
             if test_iterator:
                 weights_path = os.path.join(base_path, 'best_model.h5')
-                if not stored_model or config_data['nb_epochs'] == 0:
+                if not (stored_model or config_data['nb_epochs'] == 0):
                     logging.info('Storing Trained Model')
                     model.save_weights(weights_path, overwrite=True)
 
                 logging.info('Load Trained Model')
-                test_model.load_weights(weights_path)
+                model.load_weights(weights_path)
                 json.dump(config_data, open(os.path.join(base_path, 'config.json'), 'w'))
 
                 result_path = os.path.join('results', basename)
                 if not os.path.exists(result_path):
                     os.mkdir(result_path)
 
-                for h in history.history.keys():
-                    n = history.history[h]
-                    np.save(open(os.path.join(result_path, '{}.npy'.format(h)), 'wb'), n)
+                if history is not None:
+                    for h in history.history.keys():
+                        n = history.history[h]
+                        np.save(open(os.path.join(result_path, '{}.npy'.format(h)), 'wb'), n)
 
                 oline_test = run_utils.get_evaluation(config_data, test_model, test_iterator, basename, result_path)
                 print(oline_test)

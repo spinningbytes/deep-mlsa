@@ -36,7 +36,7 @@ class SupervisedDataLoader(object):
         # files: (fname, file_type, tags, text_type, max_sentneces, max_idx)
         files = get_list_of_files(config_data['input_{}_directories'.format(mode)])
 
-        max_sentence_len = self.max_sentence_len(config_data)
+        max_sentence_len = config_data['max_sentence_length']
 
         if max_sentence_len == -1:
             self.max_sentence_len = 140

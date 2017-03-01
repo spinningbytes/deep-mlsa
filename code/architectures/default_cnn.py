@@ -5,7 +5,7 @@ from keras.models import Model
 from utils.data_utils import load_embedding_matrix
 
 
-def create_default_model(config_data, max_len):
+def create_default_model(config_data):
     nb_filter = 200
     filter_length = 6
     hidden_dims = nb_filter
@@ -13,6 +13,8 @@ def create_default_model(config_data, max_len):
     embedding_matrix = load_embedding_matrix(config_data)
     max_features = embedding_matrix.shape[0]
     embedding_dims = embedding_matrix.shape[1]
+
+    max_len = config_data['max_sentence_length']
 
     logging.info('Build Model...')
     logging.info('Embedding Dimensions: ({},{})'.format(max_features, embedding_dims))
@@ -55,4 +57,9 @@ def create_default_model(config_data, max_len):
     softmax_layer1 = Dense(3, activation='softmax', name='sentiment_softmax', init='lecun_uniform')(hidden)
 
     model = Model(input=[main_input], output=softmax_layer1)
-    return model, model
+
+    test_model = model
+    if config_data.get('output_sentence_embeddings', False):
+        test_model = Model(input=[main_input], output=hidden)
+
+    return model, test_model

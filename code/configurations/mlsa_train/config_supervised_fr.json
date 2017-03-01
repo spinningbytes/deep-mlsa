@@ -1,0 +1,70 @@
+{
+  "input_train_directories": [
+    {
+      "directory_name": "data/supervised_phase/fr_full",
+      "file_names": ["fr_train.tsv"],
+      "schema_directory": "data/supervised_phase/fr_full",
+      "schema_labels": ["text", "language_label", "sentiment_label"],
+      "language_label": "language_label",
+      "max_sentences": 200
+    }
+  ],
+  "input_valid_directories": [
+    {
+      "directory_name": "data/supervised_phase/fr_full",
+      "file_names": ["fr_test.tsv"],
+      "schema_directory": "data/supervised_phase/fr_full",
+      "schema_labels": ["text", "language_label", "sentiment_label"],
+      "language_label": "language_label",
+      "max_sentences": -1
+    }],
+  "input_test_directories": [{
+      "directory_name": "data/supervised_phase/fr_full",
+      "file_names": ["fr_test.tsv"],
+      "schema_directory": "data/supervised_phase/fr_full",
+      "schema_labels": ["text", "language_label", "sentiment_label"],
+      "language_label": "language_label",
+      "max_sentences": -1
+    }],
+  "max_sentence_length": 60,
+  "train_loader_type": "supervised_data_loader",
+  "valid_loader_type": "supervised_data_loader",
+  "test_loader_type": "supervised_data_loader",
+  "pretrained_model_directory": "models/distant_phase",
+  "pretrained_model_basename": "fr_100M_binary",
+  "embeddings_directory": "embeddings",
+  "embeddings_basename": "fr_embeddings_200M_200d",
+  "output_path": "models/supervised_phase",
+  "output_basename": "fr_supervised",
+  "model": "default_cnn",
+  "transfer_learning": "True",
+  "nlabels": 3,
+  "tb_log_dir": "supervised_it",
+  "loss": "categorical_crossentropy",
+  "evaluation": "senti_lang_eval",
+  "metrics": "f1_score_semeval",
+  "batch_size": 1000,
+  "nb_epochs": 1000,
+  "optimizer": {
+    "epsilon": 1e-6,
+    "lr": 0.1,
+    "name": "adadelta",
+    "rho": 0.95
+  },
+  "callbacks": [
+    {
+      "name": "early_stopping",
+      "monitor": "val_f1_score_semeval",
+      "patience": 100,
+      "mode": "max",
+      "verbose": 1
+    },
+    {
+      "name": "model_checkpoit",
+      "monitor": "val_f1_score_semeval",
+      "save_best_only": "True",
+      "mode": "max",
+      "verbose": 1
+    }
+  ]
+}
