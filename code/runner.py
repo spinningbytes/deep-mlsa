@@ -9,7 +9,7 @@ import getopt
 from embeddings_container import EmbeddingContainer
 from utils import run_utils, fit_utils, model_utils
 import numpy as np
-from keras.models import  model_from_json
+from keras.models import model_from_json
 
 
 def main(args):
