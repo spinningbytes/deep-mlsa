@@ -12,7 +12,7 @@ def evaluate(model, test_iteraotr, experiment_name, ofname):
 
     output_line = '{}\n'.format(experiment_name)
     for i, o, n, ids in zip(inputs, outputs, names, ids_list):
-        y_test_senti = probas_to_classes(o[0])
+        y_test_senti = probas_to_classes(o)
 
         y_pred = model.predict(i)
 
