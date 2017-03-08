@@ -9,7 +9,7 @@ def evaluate(model, test_iteraotr, experiment_name, ofname):
 
     for i, o, n in zip(inputs, outputs, names):
         ofile = open(ofname, 'wt')
-        y_test_senti = probas_to_classes(o[0])
+        y_test_senti = probas_to_classes(o)
 
         model_output = model.predict(i)
         sentence_embeddings = model_output[1]

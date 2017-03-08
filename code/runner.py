@@ -56,40 +56,52 @@ def main(args):
             open(os.path.join(base_path, 'model_definition.json'), 'wt').write(json_string)
             json_string = test_model.to_json()
             open(os.path.join(base_path, 'test_model_definition.json'), 'wt').write(json_string)
-        else:
-            json_string = open(os.path.join(base_path, 'model_definition.json'), 'rt').read()
-            model = model_from_json(json_string)
 
-            json_string = open(os.path.join(base_path, 'test_model_definition.json'), 'rt').read()
-            test_model = model_from_json(json_string)
-
-        model.summary()
+        pretrained = False
         if not config_data['pretrained_model_directory'] == 'None' and not config_data['pretrained_model_basename'] == 'None':
             pretrained_model_path = os.path.join(config_data['pretrained_model_directory'], config_data['pretrained_model_basename'])
             pretrained_model = os.path.join(pretrained_model_path, 'best_model.h5')
+
             logging.info('Loading Pretraind Model from: {}'.format(pretrained_model))
+
+            json_string = open(os.path.join(pretrained_model_path, 'model_definition.json'), 'rt').read()
+            model = model_from_json(json_string)
+
+            json_string = open(os.path.join(pretrained_model_path, 'test_model_definition.json'), 'rt').read()
+            test_model = model_from_json(json_string)
+
             model.load_weights(pretrained_model)
             if config_data.get('transfer_learning', None) == 'True':
                 model = model_utils.pop_layer(model, config_data['nlabels'])
+            pretrained = True
 
-        optimizer = run_utils.get_optimizer(config_data)
-        metrics = run_utils.get_evaluation_metric(config_data)
+        model.summary()
 
-        model.compile(loss=config_data['loss'], optimizer=optimizer, metrics=metrics)
+        trained = False
+        if config_data['nb_epochs'] > 0:
+            optimizer = run_utils.get_optimizer(config_data)
+            metrics = run_utils.get_evaluation_metric(config_data)
 
-        if not os.path.exists(path):
-            os.mkdir(path)
+            model.compile(loss=config_data['loss'], optimizer=optimizer, metrics=metrics)
 
-        if not os.path.exists(base_path):
-            os.mkdir(base_path)
+            if not os.path.exists(path):
+                os.mkdir(path)
 
-        history, stored_model, appendices = fit_utils.fit_model(config_data, model, train_iterator, valid_iterator)
+            if not os.path.exists(base_path):
+                os.mkdir(base_path)
+
+            history, stored_model, appendices = fit_utils.fit_model(config_data, model, train_iterator, valid_iterator)
+            trained = True
 
         if test_iterator:
             weights_path = os.path.join(base_path, 'best_model.h5')
-            if not (stored_model or config_data['nb_epochs'] == 0):
+            if not trained and not pretrained:
+                weights_path = os.path.join(base_path, 'best_model.h5')
                 logging.info('Storing Trained Model')
                 model.save_weights(weights_path, overwrite=True)
+
+            if not trained and pretrained:
+                weights_path = os.path.join(pretrained_model_path, 'best_model.h5')
 
             logging.info('Load Trained Model')
             test_model.load_weights(weights_path)
@@ -98,11 +110,6 @@ def main(args):
             result_path = os.path.join('results', basename)
             if not os.path.exists(result_path):
                 os.mkdir(result_path)
-
-            if history is not None:
-                for h in history.history.keys():
-                    n = history.history[h]
-                    np.save(open(os.path.join(result_path, '{}.npy'.format(h)), 'wb'), n)
 
             oline_test = run_utils.get_evaluation(config_data, test_model, test_iterator, basename, result_path)
             print(oline_test)
