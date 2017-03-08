@@ -70,17 +70,20 @@ class SupervisedDataLoader(object):
             senti_test = []
             language_test = []
             names_test = []
+            ids_test = []
             for test_file in files:
                 preprocessed_data = self.transform_data(test_file, preprocessor, vocabulary, transformers, max_sentence_len)
                 input_test.append(preprocessed_data['text'])
                 senti_test.append(to_categorical(preprocessed_data['sentiment_label'], len(senti_map)))
                 language_test.append(to_categorical(preprocessed_data['language_label'], len(lang_map)))
                 names_test.append(test_file['file_name'])
+                ids_test.append(preprocessed_data['id'])
 
             #test sets are treated seperately
             self.input_data = input_test
             self.output_data = list(zip(senti_test, language_test))
             self.names = names_test
+            self.ids = ids_test
 
     def transform_data(self, f, preprocessor, vocabulary, transformers, max_sentence_len):
         file = open_file(f['file_name'], f['file_type'])
@@ -108,6 +111,9 @@ class SupervisedDataLoader(object):
             elif attribute == 'language_label':
                 languages = list(map(lambda x: lang_map.get(x[attributes[attribute]]), curr_tweets))
                 preprocessed_data[attribute] = np.asarray(languages)
+            elif attribute == 'id':
+                ids = list(map(lambda x: x[attributes[attribute]], curr_tweets))
+                preprocessed_data[attribute] = np.asarray(ids)
 
         return preprocessed_data
 

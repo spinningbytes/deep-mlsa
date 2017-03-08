@@ -8,14 +8,18 @@ def evaluate(model, test_iteraotr, experiment_name, ofname):
     inputs = test_iteraotr.input_data
     outputs = test_iteraotr.output_data
     names = test_iteraotr.names
+    ids_list = test_iteraotr.ids
 
     output_line = '{}\n'.format(experiment_name)
-    for i, o, n in zip(inputs, outputs, names):
+    for i, o, n, ids in zip(inputs, outputs, names, ids_list):
         y_test_senti = probas_to_classes(o[0])
 
         y_pred = model.predict(i)
 
-        y_pred_senti = y_pred
+        if type(y_pred) == list:
+            y_pred_senti = y_pred[0]
+        else:
+            y_pred_senti = y_pred
 
         y_pred_senti_cls = probas_to_classes(y_pred_senti)
 
@@ -29,5 +33,10 @@ def evaluate(model, test_iteraotr, experiment_name, ofname):
             f1_score_senti[1],
             f1_score_senti[2]
         )
+
+        ofile = open(ofname, 'wt')
+        for id, pred in zip(ids, y_pred_senti_cls.tolist()):
+            oline = '{}\t{}\n'.format(id, pred)
+            ofile.write(oline)
 
     return output_line
