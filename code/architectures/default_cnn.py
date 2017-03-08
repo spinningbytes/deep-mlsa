@@ -60,6 +60,6 @@ def create_default_model(config_data):
 
     test_model = model
     if config_data.get('output_sentence_embeddings', False):
-        test_model = Model(input=[main_input], output=hidden)
+        test_model = Model(input=[main_input], output=[softmax_layer1, hidden])
 
     return model, test_model

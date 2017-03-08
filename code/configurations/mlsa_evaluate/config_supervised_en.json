@@ -14,6 +14,8 @@
   "pretrained_model_directory": "E:/deep_mlsa/models",
   "pretrained_model_basename": "en_supervised",
   "output_path": "E:/deep_mlsa/models",
+  "embeddings_directory": "E:/embeddings",
+  "embeddings_basename": "en_embeddings_200M_200d_reduced",
   "output_basename": "en_supervised",
   "model": "default_cnn",
   "transfer_learning": "False",
