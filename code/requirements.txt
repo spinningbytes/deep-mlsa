@@ -1,0 +1,7 @@
+Keras==1.2.1
+tqdm==4.10
+Thano==0.8.2
+tensorflow-gpu==0.12.1
+gensim==13.3
+nltk==3.2.1
+scipy==0.18.1

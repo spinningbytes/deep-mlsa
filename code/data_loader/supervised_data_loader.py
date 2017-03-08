@@ -83,7 +83,6 @@ class SupervisedDataLoader(object):
             self.names = names_test
 
     def transform_data(self, f, preprocessor, vocabulary, transformers, max_sentence_len):
-        max_sentences = f['max_sentences']
         file = open_file(f['file_name'], f['file_type'])
         text_type = f['text_type']
         attributes = f['tags']

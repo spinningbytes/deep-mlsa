@@ -22,10 +22,6 @@ def get_list_of_files(directory_list):
             #tsv, gzip,..
             file_type = schema_meta_data['file_type']
 
-            #attributes where the texts are stored
-            required_tags = directory['schema_labels']
-            tags = dict([(label, schema_attributes[label]) for label in required_tags])
-
             #tweets, news, used to decide parsing
             text_type = schema_meta_data['text_type']
 
@@ -44,7 +40,7 @@ def get_list_of_files(directory_list):
                 files.append({
                     'file_name': os.path.join(dir_name, fname),
                     'file_type': file_type,
-                    'tags': tags,
+                    'tags': schema_attributes,
                     'text_type': text_type,
                     'max_sentences': max_sentences,
                     'max_index': max_idx
@@ -56,7 +52,7 @@ def get_list_of_files(directory_list):
                 files.append({
                     'file_name': os.path.join(dir_name, fname),
                     'file_type': file_type,
-                    'tags': tags,
+                    'tags': schema_attributes,
                     'text_type': text_type,
                     'max_sentences': max_sentences,
                     'max_index': max_idx

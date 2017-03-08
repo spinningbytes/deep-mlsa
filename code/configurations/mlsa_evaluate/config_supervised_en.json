@@ -5,8 +5,6 @@
       "directory_name": "E:/deep_mlsa/supervised_phase/en_full",
       "file_names": ["en_test.tsv"],
       "schema_directory": "E:/deep_mlsa/supervised_phase/en_full",
-      "schema_labels": ["text", "language_label", "sentiment_label"],
-      "language_label": "language_label",
       "max_sentences": -1
     }],
   "max_sentence_length": 60,
@@ -15,8 +13,6 @@
   "test_loader_type": "supervised_data_loader",
   "pretrained_model_directory": "E:/deep_mlsa/models",
   "pretrained_model_basename": "en_supervised",
-  "embeddings_directory": "E:/embeddings",
-  "embeddings_basename": "en_embeddings_200M_200d_reduced",
   "output_path": "E:/deep_mlsa/models",
   "output_basename": "en_supervised",
   "model": "default_cnn",
