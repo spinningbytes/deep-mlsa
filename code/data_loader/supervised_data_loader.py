@@ -1,7 +1,3 @@
-"""
-
-"""
-
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
@@ -83,13 +79,14 @@ class SupervisedDataLoader(object):
             self.names = names_test
             self.ids = ids_test
 
+
     def transform_data(self, f, preprocessor, vocabulary, transformers, max_sentence_len):
         file = open_file(f['file_name'], f['file_type'])
         text_type = f['text_type']
         attributes = f['tags']
         max_index = f['max_index']
         if sys.version_info[0] < 3:
-            curr_tweets = list(map(lambda x: x.decode('utf-8').replace('\n', '').split('\t'), file.readlines()))
+            curr_tweets = list(map(lambda x: x.replace('\n', '').split('\t'), file.readlines()))
         else:
             curr_tweets = map(lambda x: x.replace('\r', '').replace('\n', '').split('\t'), file.readlines())
         curr_tweets = list(filter(lambda x: len(x) == max_index + 1, curr_tweets))
