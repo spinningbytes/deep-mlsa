@@ -90,22 +90,24 @@ def main(args):
             if not os.path.exists(base_path):
                 os.mkdir(base_path)
 
-            history, stored_model, appendices = fit_utils.fit_model(config_data, model, train_iterator, valid_iterator)
+            fit_utils.fit_model(config_data, model, train_iterator, valid_iterator)
             trained = True
 
         if test_iterator:
             weights_path = os.path.join(base_path, 'best_model.h5')
             if not trained and not pretrained:
                 weights_path = os.path.join(base_path, 'best_model.h5')
+                json.dump(config_data, open(os.path.join(base_path, 'config.json'), 'w'))
                 logging.info('Storing Trained Model')
                 model.save_weights(weights_path, overwrite=True)
 
             if not trained and pretrained:
                 weights_path = os.path.join(pretrained_model_path, 'best_model.h5')
+                json.dump(config_data, open(os.path.join(pretrained_model_path, 'config.json'), 'w'))
 
             logging.info('Load Trained Model')
             test_model.load_weights(weights_path)
-            json.dump(config_data, open(os.path.join(base_path, 'config.json'), 'w'))
+
 
             result_path = os.path.join('results', basename)
             if not os.path.exists(result_path):
