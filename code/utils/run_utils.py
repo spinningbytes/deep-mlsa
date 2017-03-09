@@ -40,8 +40,9 @@ def get_callbacks(config_data, appendix=''):
     ret_callbacks = []
     model_stored = False
     callbacks = config_data['callbacks']
-    tensor_board = TensorBoard(log_dir=os.path.join('logging', config_data['tb_log_dir']), histogram_freq=10)
-    ret_callbacks.append(tensor_board)
+    if K._BACKEND == 'tensorflow':
+        tensor_board = TensorBoard(log_dir=os.path.join('logging', config_data['tb_log_dir']), histogram_freq=10)
+        ret_callbacks.append(tensor_board)
     for callback in callbacks:
         if callback['name'] == 'early_stopping':
             ret_callbacks.append(EarlyStopping(monitor=callback['monitor'], patience=callback['patience'], verbose=callback['verbose'], mode=callback['mode']))

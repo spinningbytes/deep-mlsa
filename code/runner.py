@@ -31,6 +31,9 @@ def main(args):
         basename = config_data['output_basename']
         base_path = os.path.join(path, basename)
 
+        if not os.path.exists(base_path):
+            os.mkdir(base_path)
+
         embeddings = EmbeddingContainer(config_data)
         train_iterator = None
         valid_iterator = None
@@ -64,11 +67,12 @@ def main(args):
 
             logging.info('Loading Pretraind Model from: {}'.format(pretrained_model))
 
-            json_string = open(os.path.join(pretrained_model_path, 'model_definition.json'), 'rt').read()
-            model = model_from_json(json_string)
+            if train_iterator is None:
+                json_string = open(os.path.join(pretrained_model_path, 'model_definition.json'), 'rt').read()
+                model = model_from_json(json_string)
 
-            json_string = open(os.path.join(pretrained_model_path, 'test_model_definition.json'), 'rt').read()
-            test_model = model_from_json(json_string)
+                json_string = open(os.path.join(pretrained_model_path, 'test_model_definition.json'), 'rt').read()
+                test_model = model_from_json(json_string)
 
             model.load_weights(pretrained_model)
             if config_data.get('transfer_learning', None) == 'True':
@@ -87,8 +91,7 @@ def main(args):
             if not os.path.exists(path):
                 os.mkdir(path)
 
-            if not os.path.exists(base_path):
-                os.mkdir(base_path)
+
 
             fit_utils.fit_model(config_data, model, train_iterator, valid_iterator)
             trained = True

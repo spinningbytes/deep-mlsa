@@ -35,7 +35,7 @@ class DistantDataParseIterator(object):
         train_dirs = config_data['input_{}_directories'.format(mode)]
         # files: (fname, file_type, tags, text_type, max_sentneces, max_idx)
         self.files = get_list_of_files(train_dirs)
-        max_sentence_len = compute_max_sent_len(train_dirs)
+        max_sentence_len = config_data['max_sentence_length']
         if max_sentence_len == -1:
             self.max_sentence_len = 140
         else:
