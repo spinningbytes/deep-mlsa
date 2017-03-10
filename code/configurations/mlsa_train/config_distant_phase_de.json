@@ -6,7 +6,7 @@
       "schema_directory": "data/distant_phase/de_smiley",
       "schema_labels": ["text", "sentiment_label"],
       "language_label": "language_label",
-      "max_sentences": 100
+      "max_sentences": -1
     }
   ],
   "input_valid_directories": [],
