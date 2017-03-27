@@ -94,3 +94,4 @@ embeddings/
 results/
 *.gz
 *.h5
+*.tsv
