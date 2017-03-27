@@ -1,0 +1,28 @@
+{
+  "input_directories": [
+    {
+      "directory_name": "data/Tweets WordEmbeddings",
+      "schema_directory": "data/Tweets WordEmbeddings",
+      "file_names": ["wemb_fr200M.gz"],
+      "schema_labels": ["text"],
+      "language_label": "language_label",
+      "max_sentences": -1
+    }
+  ],
+  "output_directory": "embeddings/",
+  "output_basename": "fr_embeddings_200M_10d",
+  "ngrams": 3,
+  "sequence": "mixed",
+  "word2vec_parameter": {
+    "size": 10,
+    "window": 5,
+    "min_count": 10,
+    "workers": 8,
+    "sg": 1,
+    "sample": 1e-5,
+    "hs": 1,
+    "iter": 5,
+    "negative": 10,
+    "max_vocab_size": 10000000
+  }
+}
