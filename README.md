@@ -1,6 +1,8 @@
 # deep-mlsa
 Code for WWW 2017 conference paper "[Leveraging large amounts of weakly supervised data for multi-language sentiment classification](https://arxiv.org/pdf/1703.02504)"
 
+We provide pre-trained models (CNNs) for sentiment classification in English, French, German and Italian, as well as the code to train new models if needed.
+
 # Setup & Requirements
 Python Version: The code is written for Python 3.5 (with backwards compatibility to Python 2.7)
 
