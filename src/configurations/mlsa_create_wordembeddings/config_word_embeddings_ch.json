@@ -1,0 +1,22 @@
+{
+  "file_name": "F:/Tweets WordEmbeddings/wemb_ch.gz",
+  "text_idx": -1,
+  "language": "en",
+  "nsentences": -1,
+  "output_directory": "embeddings/",
+  "output_basename": "ch_embeddings_200M_200d",
+  "ngrams": 3,
+  "sequence": "mixed",
+  "word2vec_parameter": {
+    "size": 200,
+    "window": 5,
+    "min_count": 5,
+    "workers": 8,
+    "sg": 1,
+    "sample": 1e-5,
+    "hs": 1,
+    "iter": 5,
+    "negative": 10,
+    "max_vocab_size": 10000000
+  }
+}

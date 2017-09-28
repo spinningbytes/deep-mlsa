@@ -1,0 +1,22 @@
+{
+  "input_file": "F:/Smiley Tweets New/distant_phase/en_smiley/en_smiley.gz",
+  "embeddings": "F:/deep_mlsa/embeddings/en_embeddings_200M_200d",
+  "output_path": "models/distant_phase/en_100M_binary",
+  "language": "en",
+  "loss": "categorical_crossentropy",
+  "text_idx": 3,
+  "nsamples": 1000,
+  "samples_per_epoch": 5000000,
+  "batch_size": 1000,
+  "max_sentence_length": 60,
+  "transfer_learning": "False",
+  "nlabels": 2,
+  "tb_log_dir": "distant_it",
+  "nb_epochs": 1,
+  "optimizer": {
+    "epsilon": 1e-6,
+    "lr": 0.1,
+    "name": "adadelta",
+    "rho": 0.95
+  }
+}

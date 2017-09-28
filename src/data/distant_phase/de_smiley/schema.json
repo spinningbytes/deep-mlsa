@@ -1,0 +1,16 @@
+{
+  "attributes": {
+    "text": 3,
+    "language_label": 1,
+    "sentiment_label": 2,
+    "id": 0
+  },
+  "meta_data": {
+    "file_type": "gzip",
+    "text_type": "tweets",
+    "negative": 7961868,
+    "length": 49391052,
+    "positive": 41429184,
+    "sentence_length": 100
+  }
+}
