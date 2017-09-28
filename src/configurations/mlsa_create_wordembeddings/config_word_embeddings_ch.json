@@ -8,14 +8,14 @@
   "ngrams": 3,
   "sequence": "mixed",
   "word2vec_parameter": {
-    "size": 200,
-    "window": 5,
-    "min_count": 5,
+    "size": 300,
+    "window": 4,
+    "min_count": 10,
     "workers": 8,
     "sg": 1,
     "sample": 1e-5,
     "hs": 1,
-    "iter": 5,
+    "iter": 20,
     "negative": 10,
     "max_vocab_size": 10000000
   }
