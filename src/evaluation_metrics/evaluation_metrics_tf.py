@@ -93,9 +93,8 @@ def f1_score_semeval(y_true, y_pred):
     # y_pred_ones[:, K.argmax(y_pred, axis=-1)] = 1
 
     # indices_x = K.arange(start=0, stop=y_true.get_shape()[0])
-    indices_x = K.expand_dims(K.arange(start=0, stop=tf.shape(y_true, name='get_indicec_x_shape')[0], dtype='int64'),
-                              dim=-1)
-    indices_y = K.expand_dims(K.argmax(y_pred, axis=-1), dim=-1)
+    indices_x = K.expand_dims(K.arange(start=0, stop=tf.shape(y_true, name='get_indicec_x_shape')[0], dtype='int64'), axis=1)
+    indices_y = K.expand_dims(K.argmax(y_pred, axis=-1), axis=1)
     indices = K.concatenate((indices_x, indices_y))
     values = K.sum(K.ones_like(indices_x, dtype='float32'), axis=-1)
     shape = K.cast(tf.shape(y_pred_ones), dtype='int64')
