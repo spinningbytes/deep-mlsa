@@ -67,7 +67,7 @@ Please cite the following paper when using this code or pretrained models for yo
   title = {{Leveraging Large Amounts of Weakly Supervised Data for Multi-Language Sentiment Classification}},
   author = {Deriu, Jan and Lucchi, Aurelien and De Luca, Valeria and Severyn, Aliaksei and M{\"u}ller, Simon and Cieliebak, Mark and Hofmann, Thomas and Jaggi, Martin},
   booktitle = {WWW 2017 - International World Wide Web Conference},
-  address = {Perth, Australia}
+  address = {Perth, Australia},
   year = {2017},
 }
 ```
